@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=
+    , initial-scale=1.0">
+    <title>HR form</title>
+    <style>
+        body {
+            background-color: rgb(60, 103, 167);
+            text-align: center;
+        }
+
+        h1,
+        h3 {
+            color: #e4de87;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 60px;
+        }
+
+        h3 {
+            font-size: 30px;
+        }
+
+        label,body {
+            color: aliceblue;
+            font-size: 40px;
+            margin: 100px;
+            text-align: left;
+        }
+
+        input,select,textarea {
+            background-color: rgb(60, 103, 167);
+            border: 2px solid aliceblue;
+            color: aliceblue;
+            font-size: 30px;
+            border-radius: 10px;
+        }
+
+        input[type="radio"] {
+            transform: scale(4);
+            margin-right: 8px;
+        }
+
+        input[type="submit"] {
+            display: block;
+            margin: 30px auto;
+            width: 500px;
+            padding: 15px;
+            font-size: 30px;
+            background-color: #e4de87;
+            color: black;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Employee Emergency Information</h1>
+    <h3>We'll use these details only during emergency situations. Please give accurate information.</h3>
+    <form action="">
+        <p>
+            <label for="first">First name</label>
+            <input type="text" name="first" id="first">
+        </p>
+        <p>
+            <label for="last">Last name</label>
+            <input type="text" name="last" id="last">
+        </p>
+        <p>
+            <label for="birth">Birthday</label>
+            <input type="date" name="birth" id="birth">
+        </p>
+        <p>
+            <label for="blood">Blood group</label>
+            <select name="blood" id="blood">
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="O">O</option>
+                <option value="AB">AB</option>
+            </select>
+        </p>
+        <p>
+            <label for="number">Emergency contact number</label>
+            <input type="text" name="number" id="number">
+        </p>
+        <p>
+            <label for="long term illness">Do you have long term illness?</label>
+            <label for="long term illness">YES</label>
+            <input type="radio" name="long term illness" id="long term illness">
+            <label for="long term illness">NO</label>
+            <input type="radio" name="long term illness" id="long term illness">
+        </p>
+        <p>
+            <label for="">Specify your illness</label>
+            <textarea name="illness" id="illness" rows="1" cols="30">
+            </textarea>
+        </p>
+        <p>
+            <input type="submit" value="submit">
+        </p>
+    </form>
+</body>
+
+</html>

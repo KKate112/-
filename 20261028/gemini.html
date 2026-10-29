@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌟 你的專屬財務安全小幫手 🌟</title>
+    <style>
+        :root {
+            --primary-color: #ffb7b2;
+            --secondary-color: #ffdac1;
+            --accent-color: #b5ead7;
+            --bg-color: #f7f9fc;
+            --text-color: #555555;
+            --card-bg: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--bg-color) 0%, #e2e8f0 100%);
+            color: var(--text-color);
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .main-container {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
+            border: 4px dashed #ff9aa2;
+        }
+
+        h1 {
+            text-align: center;
+            color: #ff6f61;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            text-align: center;
+            font-size: 0.9rem;
+            color: #888;
+            margin-bottom: 25px;
+        }
+
+        /* 1. container-input 樣式 */
+        .container-input {
+            margin-bottom: 25px;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            background: #faf8f5;
+            padding: 8px 12px;
+            border-radius: 12px;
+            border: 2px solid #eee;
+            transition: all 0.3s ease;
+        }
+
+        .input-group:focus-within {
+            border-color: #ff6f61;
+            background: #fff;
+            box-shadow: 0 0 8px rgba(255, 111, 97, 0.2);
+        }
+
+        .input-group label {
+            flex: 1;
+            font-weight: 600;
+            font-size: 0.95rem;
+            color: #666;
+        }
+
+        .input-group input {
+            width: 120px;
+            padding: 6px 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            text-align: right;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .input-group input:focus {
+            border-color: #ff6f61;
+        }
+
+        .btn-submit {
+            width: 100%;
+            background: linear-gradient(135deg, #ff9aa2 0%, #ffb7b2 100%);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            border-radius: 12px;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(255, 154, 162, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(255, 154, 162, 0.6);
+        }
+
+        .btn-submit:active {
+            transform: translateY(0);
+        }
+
+        /* 2. container-output 樣式 */
+        .container-output {
+            background: #f0f7f4;
+            border: 2px solid #b5ead7;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            display: none; /* 初始隱藏，計算後顯示 */
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .output-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-bottom: 10px;
+        }
+
+        .formula-box {
+            font-size: 0.85rem;
+            color: #666;
+            background: rgba(255, 255, 255, 0.6);
+            padding: 8px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .result-amount {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #d97706;
+            margin: 10px 0;
+        }
+
+        .cute-comment {
+            font-size: 0.9rem;
+            color: #555;
+            margin-top: 10px;
+            line-height: 1.4;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-container">
+        <h1>🐾 財務安全計算機 🐾</h1>
+        <div class="subtitle">輸入你每個月的生活開銷，測測看你的財富防護罩有多厚！</div>
+
+        <!-- 1. container-input -->
+        <div class="container-input">
+            <form id="finance-form">
+                <div class="input-group">
+                    <label>🍱 1. 食 (餐費/零食)</label>
+                    <input type="number" id="food" min="0" placeholder="例如: 8000" required>
+                </div>
+                <div class="input-group">
+                    <label>👕 2. 衣 (治裝/購物)</label>
+                    <input type="number" id="clothes" min="0" placeholder="例如: 2000" required>
+                </div>
+                <div class="input-group">
+                    <label>🏠 3. 住 (房租/水電)</label>
+                    <input type="number" id="housing" min="0" placeholder="例如: 10000" required>
+                </div>
+                <div class="input-group">
+                    <label>🚗 4. 行 (交通/油資)</label>
+                    <input type="number" id="transport" min="0" placeholder="例如: 2000" required>
+                </div>
+                <div class="input-group">
+                    <label>🧸 5. 其他 (娛樂/社交)</label>
+                    <input type="number" id="others" min="0" placeholder="例如: 3000" required>
+                </div>
+                
+                <!-- 1.2 submit -->
+                <button type="submit" class="btn-submit">✨ 計算我的財務安全數字 ✨</button>
+            </form>
+        </div>
+
+        <!-- 2. container-output -->
+        <div class="container-output" id="output-container">
+            <div class="output-title">🎉 計算完成！你的防護罩金額是：</div>
+            <div class="formula-box">
+                計算公式：(每月總開銷 × 12 個月) × 10 年
+            </div>
+            <div class="result-amount" id="result-text">NT$ 0</div>
+            <div class="cute-comment" id="comment-text">
+                準備好迎接你的財務自由小祕密了嗎？加油鴨！ 🦆
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('finance-form').addEventListener('submit', function(e) {
+            e.preventDefault(); // 防止頁面重新整理
+
+            // 取得各欄位數值，若未填則預設為 0
+            const food = parseFloat(document.getElementById('food').value) || 0;
+            const clothes = parseFloat(document.getElementById('clothes').value) || 0;
+            const housing = parseFloat(document.getElementById('housing').value) || 0;
+            const transport = parseFloat(document.getElementById('transport').value) || 0;
+            const others = parseFloat(document.getElementById('others').value) || 0;
+
+            // 計算月總開銷
+            const monthlyTotal = food + clothes + housing + transport + others;
+
+            // 計算財務安全數字 (月總開銷 x 12 x 10)
+            const safetyNumber = monthlyTotal * 12 * 10;
+
+            // 顯示結果區塊
+            const outputContainer = document.getElementById('output-container');
+            const resultText = document.getElementById('result-text');
+            const commentText = document.getElementById('comment-text');
+
+            outputContainer.style.display = 'block';
+            
+            // 格式化數字加上千分位逗號
+            resultText.innerText = `NT$ ${safetyNumber.toLocaleString()}`;
+
+            // 根據金額給予一些有趣可愛的評語
+            let cuteMessage = "";
+            if (safetyNumber === 0) {
+                data = "欸豆...你都不用花錢的嗎？簡直是修練成仙了呢！🧘‍♂️";
+            } else if (safetyNumber < 1500000) {
+                cuteMessage = "💡 小資起步走！這個目標離你並不遙遠，每天存一點，小錢也能滾出大夢想！🌱";
+            } else if (safetyNumber < 5000000) {
+                cuteMessage = "🌟 哇塞！穩健的中堅力量！擁有這筆安全基金，生活更有底氣，可以偶爾喝杯星巴克犒賞自己啦！☕";
+            } else {
+                cuteMessage = "👑 財富巨獸出沒！這是一筆相當扎實的安全儲備，朝著財務自由的康莊大道奔跑吧！🚀";
+            }
+
+            commentText.innerHTML = `每月總開銷：NT$ ${monthlyTotal.toLocaleString()} 元<br>${cuteMessage}`;
+        });
+    </script>
+
+</body>
+</html>

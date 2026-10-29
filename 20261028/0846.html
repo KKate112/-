@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+    <style>
+        body{
+            background-image:url('3.jpg') ;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+        .box {
+            width: 50%;
+            /* height: 40vh; */
+            background-color: rgb(228, 141, 110);
+
+            /* 表格置中 */
+            margin: auto;
+            margin-top: 20px;
+
+            /* 文字置中 */
+            text-align: center;
+        }
+
+        .container-input {
+            background-color: rgb(248, 164, 134);
+            padding: 20px 0;
+            border-radius: 10px;
+        }
+
+        .container-output {
+            background-color: rgb(241, 225, 134);
+            height: 20vh;
+            padding: 40px 0;
+            display: flex;
+            /* 讓結果垂直水平置中 */
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            /* 放大結果字體 */
+            font-weight: bold;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container-input box">
+        <form id="calcu">
+            <p>
+                <label for="num1">num1</label>
+                <input type="text" name="num1" id="num1">
+            </p>
+            <p>
+                <label for="num2">num2</label>
+                <input type="text" name="num2" id="num2">
+            </p>
+            <p>
+                <label for="opt">opt</label>
+                <select name="opt" id="opt">
+                    <option value="+">+</option>
+                    <option value="-">-</option>
+                    <option value="x">x</option>
+                    <option value="/">/</option>
+                </select>
+                <!-- <input type="text" name="opt" id="opt"> -->
+            </p>
+            <p>
+                <input type="submit" value="submit">
+            </p>
+        </form>
+    </div>
+
+    <div class="container-output box" id="result">
+        等待計算...
+    </div>
+    <script>
+        // 1. 抓取網頁上的 HTML 元素
+        const calcForm = document.getElementById('calcu');
+        const num1Input = document.getElementById('num1');
+        const num2Input = document.getElementById('num2');
+        const optSelect = document.getElementById('opt');
+        const resultDiv = document.getElementById('result');
+
+        // 2. 監聽表單的送出事件 (submit)
+        calcForm.addEventListener('submit', function (event) {
+            // 阻擋表單預設的跳頁/重新整理行為
+            event.preventDefault();
+
+            // 3. 取得輸入的數值並轉換為數字型態 (Float 可以算小數)
+            const n1 = parseFloat(num1Input.value);
+            const n2 = parseFloat(num2Input.value);
+            const opt = optSelect.value;
+
+            let ans = 0;
+
+            // 4. 根據選擇的運算子進行計算
+            switch (opt) {
+                case '+':
+                    ans = n1 + n2;
+                    break;
+                case '-':
+                    ans = n1 - n2;
+                    break;
+                case 'x':
+                    ans = n1 * n2;
+                    break;
+                case '/':
+                    if (n2 === 0) {
+                        ans = "錯誤（除數不能為 0）";
+                    } else {
+                        ans = n1 / n2;
+                    }
+                    break;
+            }
+
+            // 5. 將結果渲染回金黃色的 output 區塊
+            resultDiv.textContent = ans;
+        });
+    </script>
+</body>
+
+</html>

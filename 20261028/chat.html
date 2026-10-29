@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ 你的財務安全大作戰 ✨</title>
+    <style>
+        /* 全域可愛風字體與重設 */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            font-family: 'Comic Sans MS', "Microsoft JhengHei", sans-serif;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            
+            /* 甜美粉嫩草莓牛奶背景（若有 bg.jpg 仍會套用，這裡做防破圖底色） */
+            background-color: #fff0f3; 
+            background-image: url('bg.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+
+            /* 完美置中 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 掌上型機身大外包裝 */
+        .calculator-card {
+            width: 350px;
+            box-shadow: 0 15px 35px rgba(255, 143, 163, 0.25);
+            border-radius: 30px;
+            overflow: hidden;
+            border: 4px solid #ffb3c1;
+        }
+
+        /* 1. 上半部：輸入區 */
+        .container-input {
+            background-color: #ffffff;
+            padding: 28px 24px;
+        }
+
+        .container-input h2 {
+            margin: 0 0 20px 0;
+            color: #ff4d6d;
+            font-size: 1.3rem;
+            text-align: center;
+        }
+
+        .container-input p {
+            margin: 0;
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        /* 項目小標籤 */
+        .container-input label {
+            font-size: 1rem;
+            color: #594d50;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* 可愛圓滾滾輸入框 */
+        .container-input input[type="number"] {
+            width: 55%;
+            padding: 10px 14px;
+            border: 2px solid #ffe5ec;
+            border-radius: 15px;
+            font-size: 1rem;
+            outline: none;
+            background-color: #fff0f3;
+            color: #ff4d6d;
+            font-weight: bold;
+            text-align: right;
+            transition: all 0.2s ease;
+        }
+
+        /* 點擊輸入框時變色放大 */
+        .container-input input[type="number"]:focus {
+            border-color: #ff758f;
+            background-color: #ffffff;
+            box-shadow: 0 0 8px rgba(255, 117, 143, 0.3);
+        }
+
+        /* 亮眼布丁黃 Q 彈送出按鈕 */
+        .container-input input[type="submit"] {
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px;
+            background-color: #ffb703; /* 活力亮黃 */
+            color: #ffffff;
+            border: none;
+            border-radius: 20px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+            cursor: pointer;
+            box-shadow: 0 6px 0 #fb8500; /* 做成立體按鈕感 */
+            transition: all 0.1s ease;
+        }
+
+        /* 滑鼠滑過按鈕 */
+        .container-input input[type="submit"]:hover {
+            background-color: #ffc300;
+        }
+
+        /* 按鈕按下去的 Q 彈物理反饋 */
+        .container-input input[type="submit"]:active {
+            box-shadow: 0 2px 0 #fb8500;
+            transform: translateY(4px);
+        }
+
+        /* 2. 下半部：輸出區（電子螢幕風） */
+        .container-output {
+            background-color: #2b2d42; /* 深藍莓夜色 */
+            color: #ffffff;
+            padding: 24px;
+            text-align: center;
+            border-top: 4px dashed #ffb3c1; /* 軟萌的虛線接縫 */
+        }
+
+        /* 公式顯示小字 */
+        .formula-text {
+            font-size: 0.85rem;
+            color: #a2a6bc;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        /* 數字結果大字 */
+        .result-number {
+            font-size: 2.2rem;
+            color: #06d6a0; /* 招財亮綠色 */
+            font-weight: bold;
+            margin: 0;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 把兩個 box 用卡片包起來一體化 -->
+    <div class="calculator-card">
+        
+        <!-- 1. container-input -->
+        <div class="container-input">
+            <h2>💰 每月開銷算一算 💰</h2>
+            <form id="financeForm">
+                <p>
+                    <label for="food">🍱 1. 食：</label>
+                    <input type="number" id="food" value="0" min="0" required>
+                </p>
+                <p>
+                    <label for="cloth">👗 2. 衣：</label>
+                    <input type="number" id="cloth" value="0" min="0" required>
+                </p>
+                <p>
+                    <label for="live">🏠 3. 住：</label>
+                    <input type="number" id="live" value="0" min="0" required>
+                </p>
+                <p>
+                    <label for="traffic">🚗 4. 行：</label>
+                    <input type="number" id="traffic" value="0" min="0" required>
+                </p>
+                <p>
+                    <label for="other">🎁 5. 其他：</label>
+                    <input type="number" id="other" value="0" min="0" required>
+                </p>
+                
+                <!-- 1.2 submit -->
+                <input type="submit" value="✨ 算出我的安全數字 ✨">
+            </form>
+        </div>
+
+        <!-- 2. container-output -->
+        <div class="container-output">
+            <!-- 顯示計算公式 -->
+            <div class="formula-text" id="formula">
+                公式：(食 + 衣 + 住 + 行 + 其他) × 12個月 × 10年
+            </div>
+            <!-- 顯示結果 -->
+            <div class="result-number" id="result">
+                $ 0
+            </div>
+        </div>
+
+    </div>
+
+    <!-- JavaScript 財務安全計算邏輯 -->
+    <script>
+        const financeForm = document.getElementById('financeForm');
+        const formulaDiv = document.getElementById('formula');
+        const resultDiv = document.getElementById('result');
+
+        financeForm.addEventListener('submit', function(event) {
+            // 阻擋網頁重整
+            event.preventDefault();
+
+            // 1. 抓取 5 個項目的輸入值（沒填寫預設為 0）
+            const food = parseFloat(document.getElementById('food').value) || 0;
+            const cloth = parseFloat(document.getElementById('cloth').value) || 0;
+            const live = parseFloat(document.getElementById('live').value) || 0;
+            const traffic = parseFloat(document.getElementById('traffic').value) || 0;
+            const other = parseFloat(document.getElementById('other').value) || 0;
+
+            // 2. 計算每月總金額
+            const monthlyTotal = food + cloth + live + traffic + other;
+
+            // 3. 計算財務安全數字（月開銷 x 12個月 x 10年）
+            const safetyNumber = monthlyTotal * 12 * 10;
+
+            // 4. 動態顯示詳細的計算公式過程
+            formulaDiv.innerHTML = `計算過程：$${monthlyTotal.toLocaleString()} (月) × 12個月 × 10年`;
+
+            // 5. 渲染最終結果（加上千分位符號 $ 1,000,000）
+            resultDiv.textContent = `$ ${safetyNumber.toLocaleString()}`;
+        });
+    </script>
+</body>
+</html>

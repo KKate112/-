@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>小豬存錢筒・財務安全數字</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Zen+Maru+Gothic:wght@500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FFF6FA;
+    --card: #FFFFFF;
+    --ink: #3B2E5A;
+    --ink-soft: #7A6C96;
+    --pink: #FF8FB1;
+    --pink-deep: #F2628F;
+    --mint: #7FD8BE;
+    --butter: #FFE27A;
+    --lilac: #B8A6FF;
+    --line: #F3D3E0;
+    --dot: #FFD9E6;
+    --field: #FFF9FC;
+    color-scheme: light;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #241B36; --card: #31264A; --ink: #FBEFFF; --ink-soft: #C5B6E0;
+      --line: #4A3C68; --dot: #382B54; --field: #2A2040; --pink-deep: #FF8FB1;
+      color-scheme: dark;
+    }
+  }
+  :root[data-theme="dark"] {
+    --paper: #241B36; --card: #31264A; --ink: #FBEFFF; --ink-soft: #C5B6E0;
+    --line: #4A3C68; --dot: #382B54; --field: #2A2040; --pink-deep: #FF8FB1;
+    color-scheme: dark;
+  }
+  *, *::before, *::after { box-sizing: border-box; }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  body {
+    margin: 0;
+    font-family: "Zen Maru Gothic", "PingFang TC", "Microsoft JhengHei", "Noto Sans TC", sans-serif;
+    color: var(--ink);
+    background-color: var(--paper);
+    background-image: radial-gradient(var(--dot) 2px, transparent 2.5px);
+    background-size: 26px 26px;
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+  .wrap { max-width: 960px; margin: 0 auto; padding: 32px 20px 56px; }
+
+  /* Hero */
+  header { text-align: center; margin-bottom: 28px; }
+  .pig-stage { position: relative; width: 170px; height: 150px; margin: 0 auto 4px; }
+  .pig { width: 170px; height: auto; display: block; transform-origin: 50% 90%; }
+  .pig.wiggle { animation: wiggle .6s ease-in-out 2; }
+  @keyframes wiggle {
+    0%,100% { transform: rotate(0) }
+    25% { transform: rotate(-7deg) scale(1.04) }
+    75% { transform: rotate(7deg) scale(1.04) }
+  }
+  .coin {
+    position: absolute; left: 50%; top: -30px; width: 30px; height: 30px; margin-left: -15px;
+    border-radius: 50%; background: var(--butter); border: 3px solid #E8B93A;
+    font: 700 14px/24px "Fredoka", sans-serif; color: #A9771A; text-align: center;
+    opacity: 0; pointer-events: none;
+  }
+  .coin.drop { animation: drop .7s cubic-bezier(.5,0,.8,.4) forwards; }
+  @keyframes drop {
+    0% { opacity: 1; transform: translateY(-40px) rotate(0) }
+    85% { opacity: 1; transform: translateY(52px) rotate(300deg) scaleX(.4) }
+    100% { opacity: 0; transform: translateY(58px) rotate(360deg) scaleX(.2) }
+  }
+  h1 {
+    font-size: clamp(1.9rem, 5vw, 2.7rem); font-weight: 900; margin: 0; letter-spacing: .04em;
+    text-shadow: 3px 3px 0 var(--butter);
+  }
+  .lead { color: var(--ink-soft); margin: 6px 0 0; font-weight: 500; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; align-items: start; }
+  @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+
+  .container-input, .container-output {
+    background: var(--card); border: 3px solid var(--ink); border-radius: 26px;
+    padding: 24px 22px; box-shadow: 6px 6px 0 var(--pink);
+  }
+  .container-output { box-shadow: 6px 6px 0 var(--mint); }
+  h2 { font-size: 1.3rem; margin: 0 0 16px; font-weight: 900; display: flex; align-items: center; gap: 8px; }
+
+  .field { display: grid; grid-template-columns: 52px 1fr; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .badge {
+    width: 52px; height: 52px; border-radius: 18px; display: grid; place-items: center;
+    font-size: 26px; border: 2.5px solid var(--ink); transition: transform .2s;
+  }
+  .field:focus-within .badge { transform: rotate(-10deg) scale(1.08); }
+  .b1 { background: #FFD3C2 } .b2 { background: #CFE8FF } .b3 { background: #D8F5E6 }
+  .b4 { background: #FFF0B8 } .b5 { background: #E6DCFF }
+  .field label { display: block; font-weight: 700; font-size: .95rem; margin-bottom: 2px; }
+  .field label small { color: var(--ink-soft); font-weight: 500; font-size: .8rem; margin-left: 4px; }
+  .money { position: relative; }
+  .money span {
+    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+    font: 600 .9rem "Fredoka", sans-serif; color: var(--ink-soft);
+  }
+  input[type=number] {
+    width: 100%; padding: 10px 12px 10px 44px; border: 2.5px solid var(--line); border-radius: 14px;
+    background: var(--field); color: var(--ink); font: 600 1.05rem "Fredoka", sans-serif;
+    transition: border-color .2s;
+  }
+  input[type=number]:focus { outline: none; border-color: var(--pink); box-shadow: 0 0 0 4px rgba(255,143,177,.25); }
+
+  .btn {
+    width: 100%; margin-top: 10px; padding: 14px; border: 3px solid var(--ink); border-radius: 999px;
+    background: var(--pink); color: #3B2E5A; font: 900 1.1rem "Zen Maru Gothic", sans-serif;
+    cursor: pointer; box-shadow: 0 5px 0 var(--ink); transition: transform .1s, box-shadow .1s;
+  }
+  .btn:hover { background: #FFA3C0; }
+  .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--ink); }
+  .btn:focus-visible { outline: 3px dashed var(--lilac); outline-offset: 4px; }
+  .error { color: var(--pink-deep); font-weight: 700; font-size: .9rem; min-height: 1.4em; margin: 8px 0 0; text-align: center; }
+
+  /* Output */
+  .empty { text-align: center; padding: 24px 8px; color: var(--ink-soft); }
+  .empty .big { font-size: 54px; display: block; animation: float 3s ease-in-out infinite; }
+  @keyframes float { 50% { transform: translateY(-8px) } }
+
+  .formula { display: grid; gap: 10px; }
+  .step {
+    display: flex; flex-wrap: wrap; align-items: center; gap: 6px;
+    background: var(--field); border: 2px dashed var(--line); border-radius: 16px; padding: 10px 12px;
+  }
+  .step .tag { font-size: .8rem; font-weight: 700; color: var(--ink-soft); width: 100%; }
+  .chip {
+    font: 600 .95rem "Fredoka", sans-serif; padding: 2px 10px; border-radius: 999px;
+    border: 2px solid var(--ink); background: var(--card); white-space: nowrap;
+  }
+  .op { font: 700 1.1rem "Fredoka", sans-serif; color: var(--pink-deep); }
+  .chip.hl { background: var(--butter); color: #3B2E5A; }
+  .chip.mint { background: var(--mint); color: #3B2E5A; }
+
+  .result {
+    margin-top: 16px; text-align: center; padding: 20px 12px; border-radius: 22px;
+    background: var(--butter); border: 3px solid var(--ink); color: #3B2E5A; position: relative; overflow: hidden;
+  }
+  .result p { margin: 0; font-weight: 700; }
+  .result .num { font: 700 clamp(2rem, 7vw, 2.8rem)/1.2 "Fredoka", sans-serif; margin: 4px 0; word-break: break-all; }
+  .result .note { font-weight: 500; font-size: .88rem; }
+  .sparkle { position: absolute; font-size: 20px; animation: twinkle 1.6s ease-in-out infinite; }
+  .s1 { top: 10px; left: 14px } .s2 { top: 14px; right: 16px; animation-delay: .5s } .s3 { bottom: 10px; right: 30px; animation-delay: 1s }
+  @keyframes twinkle { 50% { transform: scale(.6) rotate(20deg); opacity: .5 } }
+  .pop { animation: pop .45s cubic-bezier(.3,1.6,.6,1); }
+  @keyframes pop { from { transform: scale(.8); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+
+  .bars { margin-top: 16px; display: grid; gap: 6px; }
+  .bar-row { display: grid; grid-template-columns: 56px 1fr 46px; align-items: center; gap: 8px; font-size: .85rem; font-weight: 700; }
+  .bar { height: 14px; border-radius: 999px; background: var(--field); border: 2px solid var(--line); overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; border-radius: 999px; transition: width .8s ease; }
+  .bar-row b { font: 600 .85rem "Fredoka", sans-serif; text-align: right; }
+
+  footer { text-align: center; color: var(--ink-soft); font-size: .85rem; margin-top: 28px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="pig-stage" aria-hidden="true">
+      <div class="coin" id="coin">$</div>
+      <svg class="pig" id="pig" viewBox="0 0 200 170" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="100" cy="160" rx="62" ry="7" fill="#000" opacity=".08"/>
+        <rect x="56" y="122" width="18" height="30" rx="8" fill="#F78DAE" stroke="#3B2E5A" stroke-width="4"/>
+        <rect x="126" y="122" width="18" height="30" rx="8" fill="#F78DAE" stroke="#3B2E5A" stroke-width="4"/>
+        <path d="M168 92 q18 -4 12 -18 q-6 -10 -14 0" fill="none" stroke="#3B2E5A" stroke-width="4" stroke-linecap="round"/>
+        <ellipse cx="100" cy="95" rx="72" ry="54" fill="#FFB3C9" stroke="#3B2E5A" stroke-width="4"/>
+        <path d="M58 50 l-8 -26 l26 14 z" fill="#FF8FB1" stroke="#3B2E5A" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M128 42 l20 -20 l2 30 z" fill="#FF8FB1" stroke="#3B2E5A" stroke-width="4" stroke-linejoin="round"/>
+        <rect x="84" y="40" width="34" height="8" rx="4" fill="#3B2E5A"/>
+        <ellipse cx="40" cy="98" rx="20" ry="16" fill="#FF8FB1" stroke="#3B2E5A" stroke-width="4"/>
+        <ellipse cx="34" cy="98" rx="3.5" ry="5" fill="#3B2E5A"/>
+        <ellipse cx="46" cy="98" rx="3.5" ry="5" fill="#3B2E5A"/>
+        <circle cx="70" cy="80" r="6" fill="#3B2E5A"/><circle cx="72" cy="78" r="2" fill="#fff"/>
+        <ellipse cx="78" cy="102" rx="9" ry="5" fill="#FF7FA3" opacity=".7"/>
+        <path d="M60 116 q8 6 16 0" fill="none" stroke="#3B2E5A" stroke-width="3.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <h1>財務安全數字計算機</h1>
+    <p class="lead">填入每個月的花費，小豬幫你算出十年的安心存款 🐽</p>
+  </header>
+
+  <main class="grid">
+    <section class="container-input" aria-labelledby="in-title">
+      <h2 id="in-title">🧾 每月花多少？</h2>
+      <form id="form" novalidate>
+        <div class="field">
+          <div class="badge b1" aria-hidden="true">🍙</div>
+          <div><label for="food">食<small>三餐、點心、飲料</small></label>
+          <div class="money"><span>NT$</span><input type="number" id="food" name="food" min="0" step="1" inputmode="numeric" placeholder="0"></div></div>
+        </div>
+        <div class="field">
+          <div class="badge b2" aria-hidden="true">👕</div>
+          <div><label for="cloth">衣<small>衣服、鞋子、保養</small></label>
+          <div class="money"><span>NT$</span><input type="number" id="cloth" name="cloth" min="0" step="1" inputmode="numeric" placeholder="0"></div></div>
+        </div>
+        <div class="field">
+          <div class="badge b3" aria-hidden="true">🏠</div>
+          <div><label for="house">住<small>房租、房貸、水電</small></label>
+          <div class="money"><span>NT$</span><input type="number" id="house" name="house" min="0" step="1" inputmode="numeric" placeholder="0"></div></div>
+        </div>
+        <div class="field">
+          <div class="badge b4" aria-hidden="true">🚲</div>
+          <div><label for="move">行<small>交通、油錢、停車</small></label>
+          <div class="money"><span>NT$</span><input type="number" id="move" name="move" min="0" step="1" inputmode="numeric" placeholder="0"></div></div>
+        </div>
+        <div class="field">
+          <div class="badge b5" aria-hidden="true">🎈</div>
+          <div><label for="other">其他<small>娛樂、保險、寵物</small></label>
+          <div class="money"><span>NT$</span><input type="number" id="other" name="other" min="0" step="1" inputmode="numeric" placeholder="0"></div></div>
+        </div>
+        <button type="submit" class="btn">投進小豬，算一算！</button>
+        <p class="error" id="error" role="alert"></p>
+      </form>
+    </section>
+
+    <section class="container-output" aria-labelledby="out-title" aria-live="polite">
+      <h2 id="out-title">✨ 你的財務安全數字</h2>
+      <div id="output">
+        <div class="empty">
+          <span class="big" aria-hidden="true">🐷💭</span>
+          小豬正在等你填金額喔！<br>填好後按下左邊（或上方）的按鈕。
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>財務安全數字 ＝ 每月總支出 × 12 個月 × 10 年 ・ 存到這個數字，就有十年的生活底氣 🌈</footer>
+</div>
+
+<script>
+  const fields = [
+    { id: 'food',  name: '食',   emoji: '🍙', color: '#FFB59A' },
+    { id: 'cloth', name: '衣',   emoji: '👕', color: '#8EC5FF' },
+    { id: 'house', name: '住',   emoji: '🏠', color: '#7FD8BE' },
+    { id: 'move',  name: '行',   emoji: '🚲', color: '#FFD84D' },
+    { id: 'other', name: '其他', emoji: '🎈', color: '#B8A6FF' }
+  ];
+  const fmt = n => n.toLocaleString('zh-TW');
+  const form = document.getElementById('form');
+  const out = document.getElementById('output');
+  const err = document.getElementById('error');
+  const pig = document.getElementById('pig');
+  const coin = document.getElementById('coin');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const vals = fields.map(f => {
+      const raw = document.getElementById(f.id).value.trim();
+      return { ...f, v: raw === '' ? 0 : Number(raw) };
+    });
+    if (vals.some(x => isNaN(x.v) || x.v < 0)) {
+      err.textContent = '金額不能是負數喔，請檢查一下 🙈';
+      return;
+    }
+    const monthly = vals.reduce((s, x) => s + x.v, 0);
+    if (monthly === 0) {
+      err.textContent = '至少填一項金額，小豬才有東西可以算 🐽';
+      return;
+    }
+    err.textContent = '';
+    const yearly = monthly * 12;
+    const safe = yearly * 10;
+
+    // cute animation
+    pig.classList.remove('wiggle'); coin.classList.remove('drop');
+    void pig.offsetWidth;
+    coin.classList.add('drop');
+    setTimeout(() => pig.classList.add('wiggle'), 600);
+
+    const sumChips = vals.map(x => `<span class="chip">${x.emoji} ${fmt(x.v)}</span>`).join('<span class="op">+</span>');
+    const bars = vals.map(x => {
+      const pct = Math.round(x.v / monthly * 100);
+      return `<div class="bar-row"><span>${x.emoji} ${x.name}</span><div class="bar"><i data-w="${pct}" style="background:${x.color}"></i></div><b>${pct}%</b></div>`;
+    }).join('');
+
+    out.innerHTML = `
+      <div class="formula pop">
+        <div class="step"><span class="tag">① 每月總支出</span>${sumChips}<span class="op">=</span><span class="chip hl">${fmt(monthly)}</span></div>
+        <div class="step"><span class="tag">② 一年要花</span><span class="chip hl">${fmt(monthly)}</span><span class="op">×</span><span class="chip">12 個月</span><span class="op">=</span><span class="chip mint">${fmt(yearly)}</span></div>
+        <div class="step"><span class="tag">③ 十年安全存款</span><span class="chip mint">${fmt(yearly)}</span><span class="op">×</span><span class="chip">10 年</span><span class="op">=</span><span class="chip hl">${fmt(safe)}</span></div>
+      </div>
+      <div class="result pop">
+        <span class="sparkle s1" aria-hidden="true">⭐</span><span class="sparkle s2" aria-hidden="true">💖</span><span class="sparkle s3" aria-hidden="true">✨</span>
+        <p>你的財務安全數字是</p>
+        <div class="num">NT$ <span id="count">0</span></div>
+        <p class="note">${safe >= 10000 ? `約 ${(safe / 10000).toLocaleString('zh-TW', { maximumFractionDigits: 1 })} 萬元，` : ''}存到就能安心過十年 🐷🎉</p>
+      </div>
+      <div class="bars">${bars}</div>`;
+
+    requestAnimationFrame(() => {
+      out.querySelectorAll('.bar i').forEach(i => i.style.width = i.dataset.w + '%');
+    });
+    countUp(document.getElementById('count'), safe);
+  });
+
+  function countUp(el, target) {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) { el.textContent = fmt(target); return; }
+    const dur = 1100, start = performance.now();
+    const tick = now => {
+      const p = Math.min((now - start) / dur, 1);
+      const eased = 1 - Math.pow(1 - p, 3);
+      el.textContent = fmt(Math.round(target * eased));
+      if (p < 1) requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+</script>
+</body>
+</html>
