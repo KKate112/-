@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>雙11超級購物節 - 限時特價</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Microsoft JhengHei", Arial, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* 頂部 Banner */
+        header {
+            background: linear-gradient(135deg, #ff4646, #ff2121);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            letter-spacing: 2px;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        /* 商品列表容器 */
+        .container {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 1.8rem;
+            margin-bottom: 30px;
+            color: #ff2121;
+            font-weight: bold;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        /* 商品卡片 */
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        /* 雙11特惠標籤 */
+        .badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: #ff2121;
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            border-radius: 4px;
+            z-index: 10;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 200px;
+            background-color: #eee;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 0.9rem;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            height: 2.4em;
+            line-height: 1.2em;
+            overflow: hidden;
+        }
+
+        .price-box {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .current-price {
+            color: #ff2121;
+            font-size: 1.4rem;
+            font-weight: bold;
+        }
+
+        .original-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 0.9rem;
+        }
+
+        .buy-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(135deg, #ff5e3a, #ff2121);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .buy-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* 頁尾 */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #333;
+            color: white;
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 頂部宣傳 Banner -->
+    <header>
+        <h1>⚡ 11.11 全球狂歡購物節 ⚡</h1>
+        <p>全場瘋狂下杀，限時搶購最高折抵 50%！</p>
+    </header>
+
+    <!-- 商品區域 -->
+    <div class="container">
+        <h2 class="section-title">🔥 爆款熱銷特價商品 🔥</h2>
+        
+        <div class="product-grid">
+            <!-- 商品 1 -->
+            <div class="product-card">
+                <div class="badge">11.11 特賣</div>
+                <div class="product-img">商品圖片預留區</div>
+                <div class="product-info">
+                    <h3 class="product-title">高階主動降噪藍牙無線耳機</h3>
+                    <div class="price-box">
+                        <span class="current-price">NT$ 1,111</span>
+                        <span class="original-price">NT$ 3,990</span>
+                    </div>
+                    <a href="#" class="buy-btn">立即搶購</a>
+                </div>
+            </div>
+
+            <!-- 商品 2 -->
+            <div class="product-card">
+                <div class="badge">限時秒殺</div>
+                <div class="product-img">商品圖片預留區</div>
+                <div class="product-info">
+                    <h3 class="product-title">智慧運動健康手環 (心率/血氧偵測)</h3>
+                    <div class="price-box">
+                        <span class="current-price">NT$ 888</span>
+                        <span class="original-price">NT$ 2,490</span>
+                    </div>
+                    <a href="#" class="buy-btn">立即搶購</a>
+                </div>
+            </div>
+
+            <!-- 商品 3 -->
+            <div class="product-card">
+                <div class="badge">狂歡特惠</div>
+                <div class="product-img">商品圖片預留區</div>
+                <div class="product-info">
+                    <h3 class="product-title">大容量磁吸無線行動電源 10000mAh</h3>
+                    <div class="price-box">
+                        <span class="current-price">NT$ 699</span>
+                        <span class="original-price">NT$ 1,680</span>
+                    </div>
+                    <a href="#" class="buy-btn">立即搶購</a>
+                </div>
+            </div>
+
+            <!-- 商品 4 -->
+            <div class="product-card">
+                <div class="badge">超值組合</div>
+                <div class="product-img">商品圖片預留區</div>
+                <div class="product-info">
+                    <h3 class="product-title">多功能快充氮化鎵充電器 65W</h3>
+                    <div class="price-box">
+                        <span class="current-price">NT$ 511</span>
+                        <span class="original-price">NT$ 1,290</span>
+                    </div>
+                    <a href="#" class="buy-btn">立即搶購</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 頁尾 -->
+    <footer>
+        <p>&copy; 2026 雙11超級購物節 版權所有</p>
+    </footer>
+
+</body>
+</html>
